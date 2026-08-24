@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter, Jura } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -12,11 +12,6 @@ const cormorant = Cormorant_Garamond({
 
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const jura = Jura({
-  variable: "--font-jura",
   subsets: ["latin"],
 });
 
@@ -37,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${cormorant.variable} ${inter.variable} ${jura.variable} antialiased`}
+        className={`${cormorant.variable} ${inter.variable} antialiased`}
       >
         <Header />
         <main>{children}</main>
