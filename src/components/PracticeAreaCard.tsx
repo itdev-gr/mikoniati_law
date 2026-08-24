@@ -1,21 +1,25 @@
 import Link from "next/link";
+import AreaIcon from "./AreaIcon";
 import type { PracticeArea } from "@/lib/content";
 
 export default function PracticeAreaCard({ area }: { area: PracticeArea }) {
   return (
     <Link
       href={`/practice-areas/${area.slug}`}
-      className="group border-hairline hover:border-bronze/40 relative flex h-full flex-col border bg-white p-8 transition-all duration-300 hover:shadow-[0_20px_50px_-24px_rgba(27,28,30,0.25)]"
+      className="group bg-ink hover:bg-ink-2 relative flex h-full flex-col p-8 transition-colors duration-300"
     >
       <span
         aria-hidden
-        className="bg-bronze absolute top-8 left-0 h-10 w-px transition-all duration-300 group-hover:h-[calc(100%-4rem)]"
+        className="bg-bronze absolute top-0 left-0 h-1 w-0 transition-all duration-300 group-hover:w-full"
       />
-      <h3 className="font-display text-ink group-hover:text-bronze text-2xl font-medium tracking-tight transition-colors">
+      <AreaIcon name={area.icon} className="text-bronze h-10 w-10" />
+      <h3 className="mt-6 text-lg font-bold tracking-wide text-white uppercase">
         {area.name}
       </h3>
-      <p className="mt-4 flex-1 text-sm leading-relaxed">{area.short}</p>
-      <span className="font-utility text-bronze mt-8 inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.22em] uppercase">
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-white/55">
+        {area.short}
+      </p>
+      <span className="text-bronze mt-6 inline-flex items-center gap-2 text-[12px] font-bold tracking-[0.18em] uppercase">
         Learn more
         <svg
           aria-hidden

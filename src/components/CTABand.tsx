@@ -12,10 +12,10 @@ export default function CTABand() {
         <Reveal>
           <div className="flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <p className="font-utility text-bronze text-[12px] font-bold tracking-[0.28em] uppercase">
+              <p className="text-bronze text-[13px] font-bold tracking-[0.24em] uppercase">
                 Get in touch
               </p>
-              <h2 className="font-display mt-4 text-4xl leading-[1.1] font-medium tracking-tight text-white sm:text-5xl">
+              <h2 className="mt-3 text-3xl leading-[1.1] font-extrabold tracking-tight text-white uppercase sm:text-4xl">
                 Discuss your case with us in confidence
               </h2>
               <p className="mt-5 text-base leading-relaxed text-white/60">

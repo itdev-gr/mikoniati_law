@@ -101,7 +101,7 @@ export default function AboutPage() {
               <Reveal key={value.title} delay={i * 100}>
                 <div className="border-hairline h-full border bg-white p-8">
                   <div className="bg-bronze h-8 w-px" aria-hidden />
-                  <h3 className="font-display text-ink mt-5 text-2xl font-medium">
+                  <h3 className="text-ink mt-5 text-lg font-extrabold uppercase">
                     {value.title}
                   </h3>
                   <p className="mt-4 text-sm leading-relaxed">{value.text}</p>
@@ -129,7 +129,7 @@ export default function AboutPage() {
                   <p className="font-utility text-bronze text-[12px] font-bold tracking-[0.28em]">
                     {item.year}
                   </p>
-                  <h3 className="font-display text-ink mt-2 text-2xl font-medium">
+                  <h3 className="text-ink mt-2 text-lg font-extrabold uppercase">
                     {item.title}
                   </h3>
                   <p className="mt-3 max-w-xl text-sm leading-relaxed">

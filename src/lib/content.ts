@@ -7,9 +7,18 @@ export const firm = {
   hours: "Mon – Fri, 9:00 – 18:00",
 };
 
+export type AreaIconName =
+  | "briefcase"
+  | "building"
+  | "scales"
+  | "family"
+  | "users"
+  | "document";
+
 export type PracticeArea = {
   slug: string;
   name: string;
+  icon: AreaIconName;
   short: string;
   intro: string;
   body: string[];
@@ -19,6 +28,7 @@ export type PracticeArea = {
 export const practiceAreas: PracticeArea[] = [
   {
     slug: "corporate-commercial",
+    icon: "briefcase",
     name: "Corporate & Commercial",
     short:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
@@ -38,6 +48,7 @@ export const practiceAreas: PracticeArea[] = [
   },
   {
     slug: "real-estate-property",
+    icon: "building",
     name: "Real Estate & Property",
     short:
       "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
@@ -57,6 +68,7 @@ export const practiceAreas: PracticeArea[] = [
   },
   {
     slug: "civil-litigation",
+    icon: "scales",
     name: "Civil Litigation",
     short:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.",
@@ -76,6 +88,7 @@ export const practiceAreas: PracticeArea[] = [
   },
   {
     slug: "family-law",
+    icon: "family",
     name: "Family Law",
     short:
       "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod.",
@@ -95,6 +108,7 @@ export const practiceAreas: PracticeArea[] = [
   },
   {
     slug: "employment-law",
+    icon: "users",
     name: "Employment Law",
     short:
       "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam nisi.",
@@ -114,6 +128,7 @@ export const practiceAreas: PracticeArea[] = [
   },
   {
     slug: "tax-law",
+    icon: "document",
     name: "Tax Law",
     short:
       "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et.",
@@ -159,6 +174,27 @@ export const team: TeamMember[] = [
     name: "Dolor Sit Amet",
     role: "Associate",
     bio: "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere.",
+  },
+];
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+};
+
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec ullamcorper nulla non metus auctor fringilla.",
+    name: "Lorem Ipsum",
+    role: "Client, Corporate Matter",
+  },
+  {
+    quote:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis.",
+    name: "Dolor Sit Amet",
+    role: "Client, Property Dispute",
   },
 ];
 

@@ -8,7 +8,7 @@ export default function PageHero({
   lead?: string;
 }) {
   return (
-    <section className="bg-ink relative overflow-hidden pt-40 pb-20 sm:pt-48 sm:pb-24">
+    <section className="bg-ink relative overflow-hidden py-20 sm:py-24">
       <div
         aria-hidden
         className="absolute inset-0 opacity-[0.35]"
@@ -18,13 +18,13 @@ export default function PageHero({
         }}
       />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <p className="font-utility text-bronze text-[12px] font-bold tracking-[0.28em] uppercase">
+        <p className="text-bronze text-[13px] font-bold tracking-[0.24em] uppercase">
           {eyebrow}
         </p>
-        <div className="bg-bronze mt-4 h-10 w-px" aria-hidden />
-        <h1 className="font-display mt-4 max-w-3xl text-5xl leading-[1.05] font-medium tracking-tight text-white sm:text-6xl">
+        <h1 className="mt-3 max-w-3xl text-4xl leading-[1.05] font-extrabold tracking-tight text-white uppercase sm:text-5xl">
           {title}
         </h1>
+        <div className="bg-bronze mt-5 h-1 w-14" aria-hidden />
         {lead && (
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
             {lead}

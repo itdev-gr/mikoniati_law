@@ -57,7 +57,7 @@ export default async function PracticeAreaPage({
                 </div>
               </Reveal>
               <Reveal delay={150}>
-                <h2 className="font-display text-ink mt-14 text-3xl font-medium tracking-tight">
+                <h2 className="text-ink mt-14 text-2xl font-extrabold tracking-tight uppercase">
                   How we can help
                 </h2>
                 <div className="bg-bronze mt-4 h-8 w-px" aria-hidden />
@@ -116,7 +116,7 @@ export default async function PracticeAreaPage({
                 </div>
                 <div className="bg-ink mt-6 p-8">
                   <div className="bg-bronze h-8 w-px" aria-hidden />
-                  <h3 className="font-display mt-5 text-2xl font-medium text-white">
+                  <h3 className="mt-5 text-xl font-extrabold text-white uppercase">
                     Need advice on this matter?
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/60">

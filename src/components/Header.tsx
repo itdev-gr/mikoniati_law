@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
+import { firm } from "@/lib/content";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -14,33 +15,18 @@ const nav = [
 ];
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  const solid = scrolled || open;
-
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        solid
-          ? "border-b border-hairline bg-white/95 shadow-[0_1px_0_0_rgba(0,0,0,0.02)] backdrop-blur-md"
-          : "border-b border-white/10 bg-transparent"
-      }`}
-    >
+    <header className="sticky top-0 z-50 bg-white shadow-[0_1px_0_0_rgba(0,0,0,0.06)]">
+      {/* Main bar */}
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
-        <Logo light={!solid} />
+        <Logo />
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
           {nav.slice(0, 4).map((item) => {
@@ -52,12 +38,8 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`font-utility text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors ${
-                  active
-                    ? "text-bronze"
-                    : solid
-                      ? "text-charcoal hover:text-bronze"
-                      : "text-white/90 hover:text-bronze-light"
+                className={`text-[13px] font-semibold tracking-[0.14em] uppercase transition-colors ${
+                  active ? "text-bronze" : "text-ink hover:text-bronze"
                 }`}
               >
                 {item.label}
@@ -66,9 +48,9 @@ export default function Header() {
           })}
           <Link
             href="/contact"
-            className="font-utility bg-bronze hover:bg-bronze-light inline-flex h-10 items-center px-5 text-[12px] font-semibold tracking-[0.18em] text-white uppercase transition-colors"
+            className="bg-bronze hover:bg-bronze-light inline-flex h-11 items-center px-6 text-[13px] font-bold tracking-[0.14em] text-white uppercase transition-colors"
           >
-            Contact Us
+            Free Consultation
           </Link>
         </nav>
 
@@ -80,15 +62,39 @@ export default function Header() {
           className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] lg:hidden"
         >
           <span
-            className={`h-[2px] w-6 transition-all ${solid ? "bg-charcoal" : "bg-white"} ${open ? "translate-y-[7px] rotate-45" : ""}`}
+            className={`bg-ink h-[2px] w-6 transition-all ${open ? "translate-y-[7px] rotate-45" : ""}`}
           />
           <span
-            className={`h-[2px] w-6 transition-all ${solid ? "bg-charcoal" : "bg-white"} ${open ? "opacity-0" : ""}`}
+            className={`bg-ink h-[2px] w-6 transition-all ${open ? "opacity-0" : ""}`}
           />
           <span
-            className={`h-[2px] w-6 transition-all ${solid ? "bg-charcoal" : "bg-white"} ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
+            className={`bg-ink h-[2px] w-6 transition-all ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
           />
         </button>
+      </div>
+
+      {/* Dark info strip */}
+      <div className="bg-ink hidden md:block">
+        <div className="mx-auto flex h-10 max-w-7xl items-center justify-between px-6 text-[11px] font-medium tracking-[0.12em] text-white/70 uppercase lg:px-8">
+          <div className="flex items-center gap-8">
+            <span>{firm.address.join(", ")}</span>
+            <span className="hidden lg:inline">{firm.hours}</span>
+          </div>
+          <div className="flex items-center gap-8">
+            <a
+              href={`tel:${firm.phone.replace(/\s/g, "")}`}
+              className="hover:text-bronze-light transition-colors"
+            >
+              {firm.phone}
+            </a>
+            <a
+              href={`mailto:${firm.email}`}
+              className="hover:text-bronze-light hidden transition-colors sm:inline"
+            >
+              {firm.email}
+            </a>
+          </div>
+        </div>
       </div>
 
       {open && (
@@ -100,7 +106,7 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="font-utility text-charcoal hover:text-bronze block border-b border-hairline py-4 text-[13px] font-semibold tracking-[0.18em] uppercase"
+              className="text-ink hover:text-bronze block border-b border-hairline py-4 text-[13px] font-semibold tracking-[0.14em] uppercase"
             >
               {item.label}
             </Link>

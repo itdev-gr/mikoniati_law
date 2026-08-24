@@ -11,9 +11,9 @@ export default function ContactForm() {
 
   if (sent) {
     return (
-      <div className="border-hairline flex h-full min-h-80 flex-col items-center justify-center border bg-white p-10 text-center">
+      <div className="flex h-full min-h-80 flex-col items-center justify-center bg-white p-10 text-center shadow-[0_24px_70px_-24px_rgba(27,28,30,0.3)]">
         <div className="bg-bronze h-10 w-px" aria-hidden />
-        <h3 className="font-display text-ink mt-5 text-3xl font-medium">
+        <h3 className="text-ink mt-5 text-2xl font-extrabold uppercase">
           Message sent
         </h3>
         <p className="mt-3 max-w-sm text-sm leading-relaxed">
@@ -29,7 +29,7 @@ export default function ContactForm() {
 
   return (
     <form
-      className="border-hairline border bg-white p-8 sm:p-10"
+      className="bg-white p-8 shadow-[0_24px_70px_-24px_rgba(27,28,30,0.3)] sm:p-10"
       onSubmit={(e) => {
         e.preventDefault();
         setSent(true);
