@@ -1,3 +1,8 @@
+/**
+ * Οι μεγάλοι τίτλοι δεν μπαίνουν σε κεφαλαία: στα Ελληνικά τα εκτενή κεφαλαία
+ * κείμενα διαβάζονται δύσκολα και χάνουν τους τόνους. Κεφαλαία κρατούν μόνο τα
+ * σύντομα στοιχεία (eyebrow, κουμπιά, μενού).
+ */
 export default function SectionHeading({
   eyebrow,
   title,
@@ -15,11 +20,11 @@ export default function SectionHeading({
   const centered = align === "center";
   return (
     <div className={centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      <p className="text-bronze text-[13px] font-bold tracking-[0.24em] uppercase">
+      <p className="font-display text-bronze text-[13px] font-bold tracking-[0.2em] uppercase">
         {eyebrow}
       </p>
       <h2
-        className={`mt-3 text-3xl leading-[1.1] font-extrabold tracking-tight uppercase sm:text-4xl ${
+        className={`mt-3 text-3xl leading-[1.15] font-bold tracking-tight sm:text-4xl ${
           dark ? "text-white" : "text-ink"
         }`}
       >

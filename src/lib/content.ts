@@ -1,23 +1,46 @@
+/**
+ * Το περιεχόμενο του site, στα Ελληνικά.
+ *
+ * Αυτό το αρχείο είναι ταυτόχρονα (α) η πηγή αλήθειας για ό,τι δεν αλλάζει από
+ * το dashboard και (β) το fallback του CMS: κάθε fetcher στο `src/lib/cms.ts`
+ * επιστρέφει αυτά τα δεδομένα αν το backend αποτύχει ή αν το collection είναι
+ * άδειο, ώστε το live site να μη μένει ποτέ κενό.
+ *
+ * TODO(πελάτης): τα πεδία με σήμανση PENDING περιμένουν στοιχεία από το γραφείο.
+ */
+
 export const firm = {
-  name: "Saitakis Mykoniati & Partners",
-  tagline: "Law Firm",
-  address: ["12 Lorem Ipsum Street", "Athens 105 62, Greece"],
+  name: "Σαϊτάκης Μυκωνιάτη & Συνεργάτες",
+  nameLatin: "Saitakis Mykoniati & Partners",
+  tagline: "Δικηγορικό Γραφείο",
+  founded: 2017,
+  // PENDING: πραγματική διεύθυνση γραφείου
+  address: ["Οδός & αριθμός", "Κέντρο Αθήνας"],
+  // PENDING: πραγματικό τηλέφωνο
   phone: "+30 210 000 0000",
-  email: "info@example.com",
-  hours: "Mon – Fri, 9:00 – 18:00",
+  // PENDING: πραγματικό email
+  email: "info@sm-legal.gr",
+  hours: "Δευτέρα – Παρασκευή, 9:00 – 18:00",
+  nbDaily: "https://daily.nb.org/author/kimon-saitakis/",
 };
 
+/** True αν κάποιο στοιχείο επικοινωνίας δεν έχει δοθεί ακόμη από τον πελάτη. */
+export const contactDetailsPending = firm.phone.includes("000 0000");
+
 export type AreaIconName =
+  | "inheritance"
+  | "scales"
   | "briefcase"
   | "building"
-  | "scales"
-  | "family"
-  | "users"
-  | "document";
+  | "bank"
+  | "handshake"
+  | "landmark"
+  | "shield";
 
 export type PracticeArea = {
   slug: string;
   name: string;
+  shortName: string;
   icon: AreaIconName;
   short: string;
   intro: string;
@@ -25,201 +48,327 @@ export type PracticeArea = {
   services: string[];
 };
 
+/**
+ * Οι οκτώ τομείς που έδωσε ο πελάτης. Ο πελάτης έδωσε μόνο τους τίτλους· τα
+ * κείμενα είναι γραμμένα με βάση όσα αναφέρουν τα βιογραφικά των δύο εταίρων
+ * και εκκρεμεί η έγκρισή τους.
+ */
 export const practiceAreas: PracticeArea[] = [
   {
-    slug: "corporate-commercial",
-    icon: "briefcase",
-    name: "Corporate & Commercial",
+    slug: "klironomiko-dikaio",
+    shortName: "Κληρονομικό Δίκαιο",
+    name: "Κληρονομικό Δίκαιο",
+    icon: "inheritance",
     short:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+      "Διαθήκες, νόμιμη μοίρα, αποδοχή και αποποίηση κληρονομίας, κληρονομικές διαφορές ενώπιον των δικαστηρίων.",
     intro:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
+      "Οι κληρονομικές υποθέσεις συνδυάζουν σύνθετα νομικά ζητήματα με ιδιαίτερα προσωπικές ισορροπίες. Τις χειριζόμαστε με επιστημονική τεκμηρίωση και με διακριτικότητα.",
     body: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in, egestas eget quam.",
-      "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nullam quis risus eget urna mollis ornare vel eu leo. Maecenas faucibus mollis interdum. Aenean lacinia bibendum nulla sed consectetur.",
+      "Το κληρονομικό δίκαιο αποτελεί κεντρικό πεδίο εξειδίκευσης του Γραφείου. Αναλαμβάνουμε τη σύνταξη και τον έλεγχο διαθηκών, τη ρύθμιση διαδοχής περιουσιακών στοιχείων και επιχειρήσεων, τις αποδοχές και αποποιήσεις κληρονομίας, καθώς και την πλήρη δικαστηριακή εκπροσώπηση σε κληρονομικές διαφορές.",
+      "Ιδιαίτερη έμφαση δίνεται στα ζητήματα νόμιμης μοίρας, στη μέμψη άστοργης δωρεάς, στην αγωγή περί κλήρου, στην αποκλήρωση και στις συνέπειες του συμφώνου συμβίωσης στην κληρονομική διαδοχή — πεδία στα οποία ο Κίμων Σαϊτάκης έχει δημοσιεύσει αυτοτελείς επιστημονικές μελέτες.",
+      "Όπου η υπόθεση το επιτρέπει, επιδιώκουμε συναινετική διευθέτηση μεταξύ των συγκληρονόμων, ώστε να αποφευχθεί μια μακρά και δαπανηρή δικαστική διαμάχη εντός της οικογένειας.",
     ],
     services: [
-      "Lorem ipsum dolor sit amet",
-      "Consectetur adipiscing elit",
-      "Sed do eiusmod tempor incididunt",
-      "Ut labore et dolore magna aliqua",
-      "Quis nostrud exercitation ullamco",
+      "Σύνταξη και προσβολή διαθηκών",
+      "Νόμιμη μοίρα και μέμψη άστοργης δωρεάς",
+      "Αποδοχή και αποποίηση κληρονομίας",
+      "Αγωγή περί κλήρου και διανομή κληρονομίας",
+      "Κληρονομητήρια και φορολογικές δηλώσεις κληρονομίας",
+      "Διαδοχή σε οικογενειακές επιχειρήσεις",
     ],
   },
   {
-    slug: "real-estate-property",
-    icon: "building",
-    name: "Real Estate & Property",
-    short:
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-    intro:
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa.",
-    body: [
-      "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-      "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.",
-    ],
-    services: [
-      "Sed ut perspiciatis unde omnis",
-      "Iste natus error sit voluptatem",
-      "Accusantium doloremque laudantium",
-      "Totam rem aperiam eaque ipsa",
-      "Quae ab illo inventore veritatis",
-    ],
-  },
-  {
-    slug: "civil-litigation",
+    slug: "apozimioseis-astiki-euthyni",
+    shortName: "Αποζημιώσεις",
+    name: "Αποζημιώσεις – Αστική Ευθύνη",
     icon: "scales",
-    name: "Civil Litigation",
     short:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.",
+      "Αδικοπρακτική και συμβατική ευθύνη, τροχαία ατυχήματα, ιατρική ευθύνη, ασφαλιστικές διαφορές και ηθική βλάβη.",
     intro:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.",
+      "Από τον υπολογισμό της ζημίας μέχρι την είσπραξη της αποζημίωσης, κάθε στάδιο απαιτεί τεκμηρίωση και σωστό δικονομικό σχεδιασμό.",
     body: [
-      "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.",
-      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus.",
+      "Το δίκαιο της αποζημίωσης αποτελεί το κατεξοχήν αντικείμενο της διδακτορικής και μεταδιδακτορικής έρευνας του Κίμωνα Σαϊτάκη. Το Γραφείο αναλαμβάνει υποθέσεις αστικής ευθύνης από αδικοπραξία και από σύμβαση, με έμφαση στην ορθή αποτίμηση της ζημίας και στη θεμελίωση του αιτιώδους συνδέσμου.",
+      "Χειριζόμαστε αξιώσεις από τροχαία ατυχήματα, εργατικά ατυχήματα, ιατρική ευθύνη, προσβολές προσωπικότητας και περιουσιακές ζημίες, τόσο απέναντι στον υπαίτιο όσο και απέναντι στον ασφαλιστή.",
+      "Παράλληλα, αναλαμβάνουμε την άμυνα εναντίον αξιώσεων αποζημίωσης, με πλήρη αξιολόγηση της έκθεσης του εντολέα και έγκαιρη εκτίμηση του ενδεχόμενου συμβιβασμού.",
     ],
     services: [
-      "At vero eos et accusamus",
-      "Iusto odio dignissimos ducimus",
-      "Blanditiis praesentium voluptatum",
-      "Deleniti atque corrupti quos",
-      "Dolores et quas molestias",
+      "Αγωγές αποζημίωσης από αδικοπραξία",
+      "Τροχαία και εργατικά ατυχήματα",
+      "Ιατρική αστική ευθύνη",
+      "Χρηματική ικανοποίηση λόγω ηθικής βλάβης",
+      "Ασφαλιστικές διαφορές και ευθύνη ασφαλιστή",
+      "Προσβολή προσωπικότητας",
     ],
   },
   {
-    slug: "family-law",
-    icon: "family",
-    name: "Family Law",
+    slug: "etairiko-emporiko-dikaio",
+    shortName: "Εταιρικό & Εμπορικό",
+    name: "Εταιρικό Δίκαιο – Εμπορικές Συμβάσεις – Χρηματοδοτήσεις – Πτωχεύσεις",
+    icon: "briefcase",
     short:
-      "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod.",
+      "Σύσταση και λειτουργία εταιρειών, εμπορικές συμβάσεις, εξαγορές και συγχωνεύσεις, ομολογιακά δάνεια και αφερεγγυότητα.",
     intro:
-      "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.",
+      "Υποστηρίζουμε επιχειρήσεις σε όλο τον κύκλο ζωής τους — από τη σύσταση και τις καθημερινές συμβάσεις μέχρι τη χρηματοδότηση, τη μεταβίβαση και, όπου χρειαστεί, την αναδιάρθρωση.",
     body: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Το Γραφείο παρέχει ολοκληρωμένη εταιρική και εμπορική υποστήριξη: σύσταση και μετατροπή εταιρειών, καταστατικά και συμφωνίες μετόχων, λειτουργία εταιρικών οργάνων, γενικές συνελεύσεις και ζητήματα εταιρικής διακυβέρνησης.",
+      "Στις επιχειρηματικές χρηματοδοτήσεις, ο Κίμων Σαϊτάκης έχει συγγράψει αυτοτελή μονογραφία για τη σύμβαση ομολογιακού δανείου και τις ρήτρες ανάληψης παρεπόμενων υποχρεώσεων (covenants), καθώς και μελέτες για τη ρήτρα μη επιβάρυνσης (negative pledge) και τα financial covenants.",
+      "Αναλαμβάνουμε επίσης νομικό έλεγχο (due diligence) και τεκμηρίωση σε εξαγορές και συγχωνεύσεις, καθώς και υποθέσεις αφερεγγυότητας και εξυγίανσης επιχειρήσεων.",
     ],
     services: [
-      "Nam libero tempore cum soluta",
-      "Nobis est eligendi optio",
-      "Cumque nihil impedit quo minus",
-      "Id quod maxime placeat facere",
-      "Possimus omnis voluptas assumenda",
+      "Σύσταση, μετατροπή και λύση εταιρειών",
+      "Καταστατικά και συμφωνίες μετόχων",
+      "Εμπορικές συμβάσεις και συμβάσεις διανομής",
+      "Εξαγορές, συγχωνεύσεις και νομικός έλεγχος",
+      "Ομολογιακά δάνεια και εξασφαλίσεις πιστώσεων",
+      "Πτωχευτικό δίκαιο και εξυγίανση επιχειρήσεων",
     ],
   },
   {
-    slug: "employment-law",
-    icon: "users",
-    name: "Employment Law",
+    slug: "akinita-ktimatologio",
+    shortName: "Ακίνητα & Κτηματολόγιο",
+    name: "Ακίνητα – Αγοραπωλησίες, Μισθώσεις, Επενδύσεις και Κτηματολόγιο",
+    icon: "building",
     short:
-      "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam nisi.",
+      "Έλεγχος τίτλων, αγοραπωλησίες, μισθώσεις, επενδύσεις σε ακίνητα και διόρθωση κτηματολογικών εγγραφών.",
     intro:
-      "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi.",
+      "Κάθε συναλλαγή σε ακίνητο κρίνεται από τον έλεγχο που προηγείται. Εξετάζουμε το ιδιοκτησιακό καθεστώς πριν αναληφθεί οποιαδήποτε δέσμευση.",
     body: [
-      "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
-      "Accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.",
+      "Αναλαμβάνουμε τον πλήρη νομικό έλεγχο τίτλων στο Υποθηκοφυλακείο και το Κτηματολόγιο, τη σύνταξη και τον έλεγχο προσυμφώνων και συμβολαίων, καθώς και την παράσταση κατά την υπογραφή.",
+      "Το Γραφείο έχει εκτενή εμπειρία σε κτηματολογικές διαφορές: διόρθωση ανακριβών πρώτων εγγραφών, διόρθωση γεωμετρικών στοιχείων, χωρικές μεταβολές και αγωγές αναγνώρισης κυριότητας.",
+      "Υποστηρίζουμε επίσης επενδυτικά σχήματα σε ακίνητα, εμπορικές και επαγγελματικές μισθώσεις, και υποθέσεις που αφορούν την απόδοση μισθίου και οφειλόμενα μισθώματα.",
     ],
     services: [
-      "Ut enim ad minima veniam",
-      "Quis nostrum exercitationem",
-      "Ullam corporis suscipit laboriosam",
-      "Nisi ut aliquid ex ea commodi",
-      "Consequatur quis autem vel eum",
+      "Έλεγχος τίτλων και νομικός έλεγχος ακινήτου",
+      "Αγοραπωλησίες και προσύμφωνα",
+      "Διόρθωση ανακριβών κτηματολογικών εγγραφών",
+      "Εμπορικές και αστικές μισθώσεις",
+      "Επενδύσεις και αξιοποίηση ακινήτων",
+      "Χρησικτησία και αγωγές κυριότητας",
     ],
   },
   {
-    slug: "tax-law",
-    icon: "document",
-    name: "Tax Law",
+    slug: "trapeziko-dikaio-anagkastiki-ektelesi",
+    shortName: "Τραπεζικό & Εκτέλεση",
+    name: "Τραπεζικό Δίκαιο – Οφειλές και Αναγκαστική Εκτέλεση",
+    icon: "bank",
     short:
-      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et.",
+      "Τραπεζικές διαφορές, ρύθμιση οφειλών, ανακοπές κατά διαταγών πληρωμής και κατά πράξεων αναγκαστικής εκτέλεσης.",
     intro:
-      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.",
+      "Οι προθεσμίες στην αναγκαστική εκτέλεση είναι σύντομες και ανατρεπτικές. Η έγκαιρη παρέμβαση καθορίζει το αποτέλεσμα.",
     body: [
-      "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.",
+      "Εκπροσωπούμε οφειλέτες και πιστωτές σε τραπεζικές διαφορές: αμφισβήτηση υπολοίπων και επιτοκίων, καταχρηστικοί γενικοί όροι συναλλαγών, εγγυήσεις και ευθύνη εγγυητή.",
+      "Στο πεδίο της αναγκαστικής εκτέλεσης αναλαμβάνουμε ανακοπές κατά διαταγών πληρωμής, κατά επιταγών προς πληρωμή, κατά κατασχέσεων και προγραμμάτων πλειστηριασμού, καθώς και αιτήσεις αναστολής.",
+      "Παρέχουμε επίσης υποστήριξη σε διαδικασίες ρύθμισης οφειλών και εξωδικαστικού συμβιβασμού, με ρεαλιστική εκτίμηση των διαθέσιμων επιλογών.",
     ],
     services: [
-      "Temporibus autem quibusdam",
-      "Aut officiis debitis aut rerum",
-      "Necessitatibus saepe eveniet",
-      "Voluptates repudiandae sint",
-      "Molestiae non recusandae itaque",
+      "Ανακοπές κατά διαταγών πληρωμής",
+      "Ανακοπές κατά αναγκαστικής εκτέλεσης και αναστολές",
+      "Πλειστηριασμοί και κατασχέσεις",
+      "Ευθύνη εγγυητή και καταχρηστικοί ΓΟΣ",
+      "Ρύθμιση και αναδιάρθρωση οφειλών",
+      "Είσπραξη απαιτήσεων",
+    ],
+  },
+  {
+    slug: "diamesolavisi",
+    shortName: "Διαμεσολάβηση",
+    name: "Διαμεσολάβηση και Εναλλακτική Επίλυση Διαφορών",
+    icon: "handshake",
+    short:
+      "Διαπιστευμένη διαμεσολάβηση σε αστικές, εμπορικές, οικογενειακές, περιουσιακές και κτηματολογικές διαφορές.",
+    intro:
+      "Η διαμεσολάβηση δίνει λύση σε κλάσμα του χρόνου και του κόστους μιας δίκης — και συχνά διατηρεί τη σχέση των μερών.",
+    body: [
+      "Η Αγγελική Μυκωνιάτη είναι Διαπιστευμένη Διαμεσολαβήτρια και Κτηματολογική Διαμεσολαβήτρια, με εμπειρία στη διαπραγμάτευση και στη συναινετική επίλυση διαφορών.",
+      "Αναλαμβάνουμε τόσο τη διεξαγωγή της διαμεσολάβησης όσο και την παράσταση του εντολέα ως νομικού παραστάτη, με πλήρη προετοιμασία του φακέλου και σαφή στρατηγική διαπραγμάτευσης.",
+      "Καλύπτουμε επίσης την υποχρεωτική αρχική συνεδρία διαμεσολάβησης, όπου αυτή απαιτείται από τον νόμο ως προϋπόθεση του παραδεκτού της συζήτησης της αγωγής.",
+    ],
+    services: [
+      "Υποχρεωτική αρχική συνεδρία διαμεσολάβησης",
+      "Διεξαγωγή διαμεσολάβησης",
+      "Παράσταση ως νομικός παραστάτης",
+      "Κτηματολογική διαμεσολάβηση",
+      "Εξωδικαστικές διαπραγματεύσεις και συμβιβασμοί",
+      "Σύνταξη πρακτικών και συμφωνιών επίλυσης",
+    ],
+  },
+  {
+    slug: "anagkastikes-apallotrioseis",
+    shortName: "Απαλλοτριώσεις",
+    name: "Αναγκαστικές Απαλλοτριώσεις",
+    icon: "landmark",
+    short:
+      "Καθορισμός προσωρινής και οριστικής τιμής μονάδας, αναγνώριση δικαιούχων και αποζημίωση επικειμένων.",
+    intro:
+      "Στις απαλλοτριώσεις το ζητούμενο είναι διπλό: να αναγνωριστεί ο δικαιούχος και να προσδιοριστεί σωστά η αποζημίωση.",
+    body: [
+      "Το Γραφείο εκπροσωπεί ιδιοκτήτες ακινήτων που θίγονται από αναγκαστικές απαλλοτριώσεις για έργα υποδομής και δημόσιας ωφέλειας.",
+      "Αναλαμβάνουμε τις αιτήσεις καθορισμού προσωρινής και οριστικής τιμής μονάδας αποζημίωσης, τις δίκες αναγνώρισης δικαιούχων, καθώς και τις αξιώσεις για αποζημίωση επικειμένων και για τη ζημία του απομένοντος τμήματος.",
+      "Ο χειρισμός γίνεται σε συνεργασία με επιλεγμένους τεχνικούς και εκτιμητικούς συμβούλους, ώστε η αποτίμηση να τεκμηριώνεται πλήρως ενώπιον του δικαστηρίου.",
+    ],
+    services: [
+      "Καθορισμός προσωρινής τιμής μονάδας",
+      "Καθορισμός οριστικής τιμής μονάδας",
+      "Αναγνώριση δικαιούχων αποζημίωσης",
+      "Αποζημίωση επικειμένων",
+      "Αποζημίωση για το απομένον τμήμα",
+      "Άρση και ανάκληση απαλλοτρίωσης",
+    ],
+  },
+  {
+    slug: "kanonistiki-symmorfosi-aml",
+    shortName: "Κανονιστική Συμμόρφωση",
+    name: "Κανονιστική Συμμόρφωση – Αντιμετώπιση Νομιμοποίησης Εσόδων από Παράνομες Δραστηριότητες",
+    icon: "shield",
+    short:
+      "Πολιτικές και διαδικασίες συμμόρφωσης, AML/KYC, εσωτερικός έλεγχος και υποστήριξη εποπτευόμενων οντοτήτων.",
+    intro:
+      "Για τις εποπτευόμενες οντότητες η συμμόρφωση δεν είναι τυπική υποχρέωση· είναι προϋπόθεση λειτουργίας.",
+    body: [
+      "Ο Κίμων Σαϊτάκης διατελεί Νομικός Σύμβουλος και Υπεύθυνος Κανονιστικής Συμμόρφωσης της εποπτευόμενης από την Επιτροπή Κεφαλαιαγοράς «Southbridge Advisors Α.Ε.Δ.Ο.Ε.Ε.», καθώς και AML & Compliance Officer του εποπτευόμενου από την Τράπεζα της Ελλάδος Ιδρύματος Πληρωμών «Agreed Payments Α.Ε.».",
+      "Το Γραφείο σχεδιάζει και επικαιροποιεί εγχειρίδια και πολιτικές συμμόρφωσης, διαδικασίες δέουσας επιμέλειας πελάτη (KYC/CDD), αξιολόγηση κινδύνου και εσωτερικές διαδικασίες αναφοράς ύποπτων συναλλαγών.",
+      "Παρέχουμε επίσης εκπαίδευση προσωπικού, υποστήριξη σε εποπτικούς ελέγχους και γνωμοδοτήσεις επί ειδικών ζητημάτων κανονιστικού πλαισίου.",
+    ],
+    services: [
+      "Πολιτικές και εγχειρίδια συμμόρφωσης",
+      "Διαδικασίες KYC και δέουσας επιμέλειας",
+      "Αξιολόγηση και διαχείριση κινδύνου AML",
+      "Υποστήριξη σε εποπτικούς ελέγχους",
+      "Εκπαίδευση προσωπικού",
+      "Εταιρική διακυβέρνηση και εσωτερικός έλεγχος",
     ],
   },
 ];
 
 export type TeamMember = {
+  slug: string;
   name: string;
   role: string;
-  bio: string;
+  credentials: string;
+  photo: string;
+  email: string;
+  linkedin: string;
+  /** Σύντομο κείμενο για την κάρτα στη λίστα της ομάδας. */
+  short: string;
+  /** Το πλήρες βιογραφικό, μία παράγραφος ανά στοιχείο. */
+  bio: string[];
+  /** Αν true, η κάρτα και η σελίδα του δείχνουν κουμπί «Δημοσιεύσεις». */
+  hasPublications: boolean;
 };
 
 export const team: TeamMember[] = [
   {
-    name: "Georgios Saitakis",
-    role: "Founding Partner",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
+    slug: "kimon-saitakis",
+    name: "Κίμων Σαϊτάκης",
+    role: "Εταίρος",
+    credentials:
+      "Επίκουρος Καθηγητής Αστικού Δικαίου Νομικής Σχολής ΕΚΠΑ · Δικηγόρος παρ’ Αρείω Πάγω",
+    photo: "/team/kimon-saitakis.jpg",
+    // PENDING: προσωπικό email
+    email: "k.saitakis@sm-legal.gr",
+    linkedin: "https://www.linkedin.com/in/kimon-saitakis-86618470/",
+    short:
+      "Επίκουρος Καθηγητής Αστικού Δικαίου στη Νομική Σχολή Αθηνών και δικηγόρος παρ’ Αρείω Πάγω, με εξειδίκευση στο Αστικό και Εμπορικό Δίκαιο.",
+    bio: [
+      "Ο Κίμων Σαϊτάκης είναι Επίκουρος Καθηγητής Αστικού Δικαίου στη Νομική Σχολή του Εθνικού και Καποδιστριακού Πανεπιστημίου Αθηνών και δικηγόρος παρ’ Αρείω Πάγω, με πολυετή εμπειρία στη δικαστηριακή και συμβουλευτική δικηγορία και εξειδίκευση στο Αστικό και Εμπορικό Δίκαιο.",
+      "Αποφοίτησε με βαθμό «Άριστα» από τη Νομική Σχολή Αθηνών, όπου ολοκλήρωσε και τις μεταπτυχιακές σπουδές του στο Αστικό Δίκαιο με βαθμό επίσης «Άριστα». Το 2015 αναγορεύθηκε Διδάκτωρ Νομικής με βαθμό «Άριστα ομοφώνως», ενώ το 2022 ολοκλήρωσε τη μεταδιδακτορική του έρευνα. Το ερευνητικό και συγγραφικό έργο του εκτείνεται σε ευρύ φάσμα του ιδιωτικού δικαίου και περιλαμβάνει τρία βιβλία, συμμετοχή σε αρκετά συλλογικά επιστημονικά έργα και περισσότερες από 35 δημοσιεύσεις σε ελληνικά και διεθνή νομικά περιοδικά.",
+      "Έχει ιδιαίτερη εμπειρία στις κληρονομικές διαφορές, το δίκαιο ακινήτων και επενδύσεων, το εταιρικό δίκαιο, τις επιχειρηματικές χρηματοδοτήσεις, τις εξαγορές και συγχωνεύσεις, το δίκαιο των συμβάσεων, τις αναγκαστικές απαλλοτριώσεις και τις υποθέσεις αποζημιώσεων. Παράλληλα, παρέχει συμβουλευτική υποστήριξη σε επιχειρήσεις για ζητήματα συμβάσεων, εταιρικής λειτουργίας και κανονιστικής συμμόρφωσης, ενώ συντάσσει γνωμοδοτήσεις επί σύνθετων νομικών ζητημάτων που εμπίπτουν στα επιστημονικά του πεδία.",
+      "Η επαγγελματική του δραστηριότητα περιλαμβάνει, μεταξύ άλλων, τη θέση του Νομικού Συμβούλου και Υπευθύνου Κανονιστικής Συμμόρφωσης της εποπτευόμενης από την Επιτροπή Κεφαλαιαγοράς εταιρείας «Southbridge Advisors Α.Ε.Δ.Ο.Ε.Ε.», καθώς και τη θέση του Υπευθύνου Κανονιστικής Συμμόρφωσης και Αντιμετώπισης της Νομιμοποίησης Εσόδων από Παράνομες Δραστηριότητες (AML & Compliance Officer) του εποπτευόμενου από την Τράπεζα της Ελλάδος Ιδρύματος Πληρωμών «Agreed Payments Ίδρυμα Πληρωμών Α.Ε.».",
+      "Στη Νομική Σχολή Αθηνών διδάσκει, σε προπτυχιακό επίπεδο, Γενικές Αρχές Αστικού Δικαίου, Κληρονομικό Δίκαιο, Οικογενειακό Δίκαιο και Εφαρμογές Αστικού Δικαίου, ενώ σε μεταπτυχιακό επίπεδο συμμετέχει στη διδασκαλία των μαθημάτων «Ειδικά θέματα στο σύστημα της αδικοπρακτικής ευθύνης» και «Μορφές εξασφάλισης των πιστώσεων στις σύγχρονες συναλλαγές». Έχει επίσης διδάξει Αστικό Δίκαιο στο Οικονομικό Πανεπιστήμιο Αθηνών και στην Εθνική Σχολή Δικαστικών Λειτουργών, ενώ έχει συμμετάσχει ως εισηγητής σε πλήθος συνεδρίων, ημερίδων και σεμιναρίων επαγγελματικής κατάρτισης για νομικούς.",
+      "Για το ακαδημαϊκό και ερευνητικό του έργο έχει τιμηθεί με υποτροφίες και διακρίσεις από σημαντικούς ελληνικούς θεσμούς και ιδρύματα, μεταξύ άλλων το Ίδρυμα Κρατικών Υποτροφιών (Ι.Κ.Υ.), την Ακαδημία Αθηνών και το Ίδρυμα Ωνάση. Αρθρογραφεί τακτικά στον περιοδικό και ηλεκτρονικό Τύπο, καθώς και σε ειδησεογραφικά και νομικά μέσα.",
+      "Είναι μέλος της Ένωσης Αστικολόγων, του Ερευνητικού Κέντρου Αστικού Δικαίου, της Εταιρείας Οικογενειακού Δικαίου και της Εταιρείας Νομικών Βορείου Ελλάδος.",
+    ],
+    hasPublications: true,
   },
   {
-    name: "Aggeliki Mykoniati",
-    role: "Founding Partner",
-    bio: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque.",
-  },
-  {
-    name: "Lorem Ipsum",
-    role: "Senior Associate",
-    bio: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.",
-  },
-  {
-    name: "Dolor Sit Amet",
-    role: "Associate",
-    bio: "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere.",
+    slug: "angeliki-mykoniati",
+    name: "Αγγελική Μυκωνιάτη",
+    role: "Εταίρος",
+    credentials:
+      "Δικηγόρος παρ’ Αρείω Πάγω, LL.M. · Διαπιστευμένη Διαμεσολαβήτρια",
+    photo: "/team/angeliki-mykoniati.jpg",
+    // PENDING: προσωπικό email
+    email: "a.mykoniati@sm-legal.gr",
+    linkedin: "https://www.linkedin.com/in/angeliki-mykoniati-4959409a/",
+    short:
+      "Δικηγόρος παρ’ Αρείω Πάγω με μεταπτυχιακή ειδίκευση στην Πολιτική Δικονομία, πρώην δικαστική λειτουργός και Διαπιστευμένη Διαμεσολαβήτρια.",
+    bio: [
+      "Η Αγγελική Μυκωνιάτη είναι δικηγόρος παρ’ Αρείω Πάγω με μεταπτυχιακή ειδίκευση στην Πολιτική Δικονομία και σημαντική εμπειρία στη δικαστηριακή πρακτική, τη συμβουλευτική δικηγορία και την εναλλακτική επίλυση διαφορών.",
+      "Είναι απόφοιτος της Νομικής Σχολής του Εθνικού και Καποδιστριακού Πανεπιστημίου Αθηνών και κάτοχος Μεταπτυχιακού Διπλώματος Ειδίκευσης στην Πολιτική Δικονομία. Ασκεί μάχιμη δικηγορία από το 2015. Κατά την προηγούμενη δικαστική της υπηρεσία υπήρξε μέλος της Ένωσης Δικαστών και Εισαγγελέων.",
+      "Η εμπειρία της από την άσκηση δικαστικών καθηκόντων, σε συνδυασμό με την πολυετή δικηγορική της δραστηριότητα, της επιτρέπει να προσεγγίζει κάθε υπόθεση με ιδιαίτερη έμφαση στην ουσιαστική αξιολόγηση των πραγματικών περιστατικών, στην αποδεικτική θεμελίωση και στον έγκαιρο σχεδιασμό της κατάλληλης δικονομικής στρατηγικής.",
+      "Ασχολείται κυρίως με υποθέσεις Αστικού και Εμπορικού Δικαίου, δικαστικές διαφορές, ακίνητα και Κτηματολόγιο, κληρονομικές υποθέσεις και αποδοχές κληρονομίας, τραπεζικές διαφορές και αναγκαστική εκτέλεση, καθώς και υποθέσεις αποζημιώσεων και ασφαλιστικής ευθύνης. Παράλληλα, παρέχει συμβουλευτική υποστήριξη σε επιχειρήσεις σε ζητήματα συμβάσεων, εταιρικής λειτουργίας και κανονιστικής συμμόρφωσης.",
+      "Είναι Διαπιστευμένη Διαμεσολαβήτρια και Κτηματολογική Διαμεσολαβήτρια, με εμπειρία στη διαπραγμάτευση και στη συναινετική επίλυση αστικών, εμπορικών, οικογενειακών και περιουσιακών διαφορών.",
+      "Στον χειρισμό κάθε εντολής δίνει ιδιαίτερη σημασία στην προσωπική επικοινωνία με τον εντολέα, στη σαφή ενημέρωση για τις διαθέσιμες επιλογές και στη διαμόρφωση μιας ρεαλιστικής και αποτελεσματικής νομικής στρατηγικής.",
+    ],
+    hasPublications: false,
   },
 ];
 
-export type Testimonial = {
-  quote: string;
-  name: string;
-  role: string;
-};
-
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec ullamcorper nulla non metus auctor fringilla.",
-    name: "Lorem Ipsum",
-    role: "Client, Corporate Matter",
-  },
-  {
-    quote:
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis.",
-    name: "Dolor Sit Amet",
-    role: "Client, Property Dispute",
-  },
-];
-
+/** Στοιχεία που προκύπτουν από το υλικό του πελάτη — όχι εμπορικοί ισχυρισμοί. */
 export const stats = [
-  { value: "25+", label: "Years of practice" },
-  { value: "600", label: "Cases handled" },
-  { value: "6", label: "Practice areas" },
-  { value: "98%", label: "Client retention" },
+  { value: "2017", label: "Έτος ίδρυσης" },
+  { value: "8", label: "Τομείς δραστηριότητας" },
+  { value: "35+", label: "Επιστημονικές δημοσιεύσεις" },
+  { value: "3", label: "Αυτοτελείς μονογραφίες" },
 ];
 
 export const values = [
   {
-    title: "Integrity",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    title: "Επιστημονική τεκμηρίωση",
+    text: "Κάθε υπόθεση μελετάται σε βάθος, με νομική ανάλυση που στηρίζεται στη νομοθεσία, τη νομολογία και τη θεωρία.",
   },
   {
-    title: "Precision",
-    text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute.",
+    title: "Σαφής στρατηγική",
+    text: "Διαμορφώνουμε συγκεκριμένο σχέδιο δράσης, προσαρμοσμένο στις πραγματικές ανάγκες του εντολέα και στους κινδύνους της υπόθεσης.",
   },
   {
-    title: "Discretion",
-    text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint.",
+    title: "Προσωπική ενασχόληση",
+    text: "Οι εταίροι συμμετέχουν προσωπικά στον χειρισμό και την εποπτεία των υποθέσεων, με άμεση επικοινωνία και συνέπεια.",
   },
   {
-    title: "Commitment",
-    text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum sed ut.",
+    title: "Εχεμύθεια",
+    text: "Η διακριτικότητα και η προστασία των πληροφοριών του εντολέα διέπουν κάθε στάδιο της συνεργασίας.",
+  },
+];
+
+/** Το κείμενο «Το Γραφείο» όπως το έδωσε ο πελάτης. */
+export const aboutParagraphs = [
+  "Το Δικηγορικό Γραφείο Σαϊτάκης – Μυκωνιάτη έχει ιδρυθεί από το 2017 και εδρεύει στο κέντρο της Αθήνας. Παρέχει ολοκληρωμένες νομικές υπηρεσίες σε επιχειρήσεις, εταιρείες και ιδιώτες, με έμφαση στο Αστικό και Εμπορικό Δίκαιο, τις σύνθετες δικαστικές διαφορές, τη στρατηγική νομική συμβουλευτική και την κανονιστική συμμόρφωση επιχειρήσεων.",
+  "Η ταυτότητα του Γραφείου διαμορφώνεται από τη συμπληρωματική πορεία των δύο εταίρων του. Ο Κίμων Σαϊτάκης, Επίκουρος Καθηγητής Αστικού Δικαίου στη Νομική Σχολή του Εθνικού και Καποδιστριακού Πανεπιστημίου Αθηνών, συνδυάζει την επιστημονική έρευνα και τη συστηματική εμβάθυνση στο ιδιωτικό δίκαιο με την ενεργό δικηγορική πρακτική. Η Αγγελική Μυκωνιάτη, Δικηγόρος, LL.M., πρώην δικαστική λειτουργός και Διαπιστευμένη Διαμεσολαβήτρια, διαθέτει ουσιαστική εμπειρία στη διαχείριση σύνθετων υποθέσεων, στη δικαστηριακή εκπροσώπηση και στην εξωδικαστική επίλυση διαφορών.",
+  "Η προσέγγισή μας βασίζεται στην εις βάθος μελέτη κάθε υπόθεσης, στην επιστημονικά τεκμηριωμένη νομική ανάλυση και στη διαμόρφωση σαφούς στρατηγικής, προσαρμοσμένης στις πραγματικές ανάγκες του εντολέα. Δεν περιοριζόμαστε στη διεκπεραίωση μιας νομικής ενέργειας· επιδιώκουμε να κατανοήσουμε το σύνολο της υπόθεσης, να αξιολογήσουμε έγκαιρα τους κινδύνους και να προτείνουμε την πλέον κατάλληλη και αποτελεσματική λύση.",
+  "Οι εταίροι του Γραφείου συμμετέχουν προσωπικά στον χειρισμό και την εποπτεία των υποθέσεων, διασφαλίζοντας άμεση επικοινωνία, συνέπεια και υψηλό επίπεδο νομικής υποστήριξης. Όπου απαιτείται, συνεργαζόμαστε με επιλεγμένους επιστημονικούς και τεχνικούς συμβούλους, ώστε κάθε υπόθεση να αντιμετωπίζεται ολοκληρωμένα.",
+];
+
+/** Το κείμενο «Νομικές Γνωμοδοτήσεις» όπως το έδωσε ο πελάτης. */
+export const opinionsParagraphs = [
+  "Το Γραφείο αναλαμβάνει την εκπόνηση πλήρως τεκμηριωμένων νομικών γνωμοδοτήσεων για ιδιώτες, επιχειρήσεις, δημόσιους οργανισμούς, εταιρικά όργανα και επαγγελματίες, ιδίως σε σύνθετα ζητήματα από όλο το φάσμα του Αστικού και του Εμπορικού Δικαίου.",
+  "Κάθε γνωμοδότηση εκπονείται κατόπιν διεξοδικής μελέτης των πραγματικών περιστατικών και των διαθέσιμων εγγράφων, καθώς και έρευνας της ισχύουσας νομοθεσίας, της νομολογίας και της νομικής θεωρίας. Στόχος είναι η παροχή σαφών και πρακτικά αξιοποιήσιμων συμπερασμάτων, η αξιολόγηση των ενδεχόμενων νομικών κινδύνων, η διαμόρφωση της κατάλληλης δικαστικής ή εξωδικαστικής στρατηγικής, αλλά και η αξιοποίηση στο πλαίσιο εκκρεμούς δικαστικής διαδικασίας.",
+  "Οι γνωμοδοτήσεις εκπονούνται από τον Επίκουρο Καθηγητή Αστικού Δικαίου στη Νομική Σχολή Αθηνών Κίμωνα Σαϊτάκη, συνδυάζοντας την επιστημονική εμβάθυνση με την πρακτική εφαρμογή του δικαίου.",
+  "Παρέχεται επίσης ανεξάρτητη δεύτερη νομική γνώμη σε υποθέσεις ιδιαίτερης σημασίας ή πολυπλοκότητας, καθώς και επιστημονική νομική υποστήριξη προς δικηγόρους και δικηγορικά γραφεία.",
+];
+
+export type NewsItem = {
+  id: string;
+  title: string;
+  date: string;
+  source: string;
+  excerpt: string;
+  url: string;
+};
+
+/**
+ * Fallback για την ενότητα «Νέα». Ο πελάτης δεν έδωσε ακόμη επιμέρους άρθρα,
+ * μόνο τη σελίδα συγγραφέα στο NB Daily· τα υπόλοιπα προστίθενται από το
+ * dashboard.
+ */
+export const news: NewsItem[] = [
+  {
+    id: "nb-daily-kimon-saitakis",
+    title: "Αρθρογραφία στο NB Daily",
+    date: "",
+    source: "NB Daily — Νομική Βιβλιοθήκη",
+    excerpt:
+      "Τα άρθρα του Κίμωνα Σαϊτάκη στην ηλεκτρονική έκδοση NB Daily της Νομικής Βιβλιοθήκης.",
+    url: firm.nbDaily,
   },
 ];

@@ -1,7 +1,14 @@
 import Link from "next/link";
 import Reveal from "./Reveal";
+import { contactDetailsPending, firm } from "@/lib/content";
 
-export default function CTABand() {
+export default function CTABand({
+  title = "Συζητήστε την υπόθεσή σας μαζί μας",
+  lead = "Επικοινωνήστε με το Γραφείο για μια πρώτη αξιολόγηση της υπόθεσής σας, με πλήρη εχεμύθεια.",
+}: {
+  title?: string;
+  lead?: string;
+}) {
   return (
     <section className="bg-ink relative overflow-hidden">
       <div
@@ -12,29 +19,30 @@ export default function CTABand() {
         <Reveal>
           <div className="flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <p className="text-bronze text-[13px] font-bold tracking-[0.24em] uppercase">
-                Get in touch
+              <p className="font-display text-bronze text-[13px] font-bold tracking-[0.2em] uppercase">
+                Επικοινωνία
               </p>
-              <h2 className="mt-3 text-3xl leading-[1.1] font-extrabold tracking-tight text-white uppercase sm:text-4xl">
-                Discuss your case with us in confidence
+              <h2 className="mt-3 text-3xl leading-[1.15] font-bold tracking-tight text-white sm:text-4xl">
+                {title}
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-white/60">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
+              <p className="mt-5 text-base leading-relaxed text-white/60">{lead}</p>
             </div>
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/contact"
-                className="font-utility bg-bronze hover:bg-bronze-light inline-flex h-12 items-center justify-center px-8 text-[12px] font-semibold tracking-[0.2em] text-white uppercase transition-colors"
+                href="/epikoinonia"
+                className="font-display bg-bronze hover:bg-bronze-light inline-flex h-12 items-center justify-center px-8 text-[12px] font-semibold tracking-[0.16em] text-white uppercase transition-colors"
               >
-                Request a Consultation
+                Φόρμα επικοινωνίας
               </Link>
               <a
-                href="tel:+302100000000"
-                className="font-utility inline-flex h-12 items-center justify-center border border-white/25 px-8 text-[12px] font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:border-white hover:bg-white/5"
+                href={
+                  contactDetailsPending
+                    ? `mailto:${firm.email}`
+                    : `tel:${firm.phone.replace(/\s/g, "")}`
+                }
+                className="font-display inline-flex h-12 items-center justify-center border border-white/25 px-8 text-[12px] font-semibold tracking-[0.16em] text-white uppercase transition-colors hover:border-white hover:bg-white/5"
               >
-                +30 210 000 0000
+                {contactDetailsPending ? firm.email : firm.phone}
               </a>
             </div>
           </div>

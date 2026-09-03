@@ -1,5 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
+import { firm } from "@/lib/content";
 
+/**
+ * Το λογότυπο του γραφείου.
+ *
+ * Σε ανοιχτό φόντο χρησιμοποιείται το πραγματικό αρχείο. Σε σκούρο φόντο
+ * (`light`) αποδίδεται ως τυπογραφικό lockup: το αρχείο που έχουμε είναι JPEG
+ * με λευκό φόντο και δεν μπορεί να μπει πάνω σε σκούρο.
+ *
+ * TODO(πελάτης): μόλις σταλεί vector ή PNG με διαφάνεια, χρησιμοποιείται το
+ * ίδιο αρχείο και στις δύο περιπτώσεις.
+ */
 export default function Logo({
   light = false,
   className = "",
@@ -7,26 +19,40 @@ export default function Logo({
   light?: boolean;
   className?: string;
 }) {
+  if (light) {
+    return (
+      <Link
+        href="/"
+        aria-label={`${firm.name} — αρχική`}
+        className={`font-display inline-flex items-center gap-3 ${className}`}
+      >
+        <span className="text-[17px] font-bold tracking-[0.08em] whitespace-nowrap">
+          <span className="text-white">SAITAKIS</span>{" "}
+          <span className="text-bronze-light">MYKONIATI</span>
+        </span>
+        <span aria-hidden className="h-8 w-px bg-white/40" />
+        <span className="flex flex-col justify-center gap-[3px] text-[9px] leading-none font-semibold tracking-[0.18em] whitespace-nowrap">
+          <span className="text-white/80">&amp; PARTNERS</span>
+          <span className="text-bronze-light">LAW FIRM</span>
+        </span>
+      </Link>
+    );
+  }
+
   return (
     <Link
       href="/"
-      aria-label="Saitakis Mykoniati & Partners — home"
-      className={`group inline-flex items-center gap-3 ${className}`}
+      aria-label={`${firm.name} — αρχική`}
+      className={`inline-flex items-center ${className}`}
     >
-      <span className="font-utility text-[17px] font-bold tracking-[0.08em] whitespace-nowrap">
-        <span className={light ? "text-white" : "text-charcoal"}>SAITAKIS</span>{" "}
-        <span className="text-bronze">MYKONIATI</span>
-      </span>
-      <span
-        aria-hidden
-        className={`h-8 w-px ${light ? "bg-white/40" : "bg-charcoal/40"}`}
+      <Image
+        src="/logo.jpg"
+        alt={firm.nameLatin}
+        width={554}
+        height={261}
+        priority
+        className="h-11 w-auto sm:h-12"
       />
-      <span className="font-utility flex flex-col justify-center gap-[3px] text-[9px] leading-none font-semibold tracking-[0.18em] whitespace-nowrap">
-        <span className={light ? "text-white/80" : "text-charcoal"}>
-          &amp; PARTNERS
-        </span>
-        <span className="text-bronze">LAW FIRM</span>
-      </span>
     </Link>
   );
 }
