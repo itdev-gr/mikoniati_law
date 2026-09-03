@@ -27,7 +27,7 @@ export default function Header() {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
         <Logo />
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Κύριο μενού">
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Κύριο μενού">
           {nav.map((item) => (
             <Link
               key={item.href}

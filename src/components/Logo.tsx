@@ -46,12 +46,14 @@ export default function Logo({
       className={`inline-flex items-center ${className}`}
     >
       <Image
-        src="/logo.jpg"
+        src="/logo.png"
         alt={firm.nameLatin}
-        width={554}
-        height={261}
+        width={520}
+        height={88}
         priority
-        className="h-11 w-auto sm:h-12"
+        // Στα 1024–1279px το μενού έχει 6 στοιχεία συν κουμπί και δεν χωράει
+        // μεγαλύτερο σήμα· σε κινητό και σε ευρείες οθόνες μεγαλώνει.
+        className="h-10 w-auto lg:h-9 xl:h-11"
       />
     </Link>
   );
