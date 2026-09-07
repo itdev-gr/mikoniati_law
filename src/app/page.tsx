@@ -22,6 +22,9 @@ export default async function Home() {
     fetchFirmContact(),
   ]);
   const about = copyParagraphs(copy, "about_body", aboutParagraphs);
+  // Χωρίς fallback: το slot άδειασε όταν η φράση του έγινε τίτλος, αλλά αν ο
+  // πελάτης γράψει νέο lead στο dashboard πρέπει να εμφανιστεί.
+  const heroLead = copy("home_hero_lead", "");
 
   return (
     <>
@@ -44,6 +47,13 @@ export default async function Home() {
                 )}
               </h1>
             </Reveal>
+            {heroLead && (
+              <Reveal delay={200}>
+                <p className="mt-6 max-w-xl text-base leading-relaxed sm:text-lg">
+                  {heroLead}
+                </p>
+              </Reveal>
+            )}
             <Reveal delay={300}>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                 <Link

@@ -69,7 +69,8 @@ export default function Header({ contact }: { contact: FirmContact }) {
       {/* Σκούρα λωρίδα στοιχείων επικοινωνίας */}
       <div className="bg-ink hidden md:block">
         <div className="font-display mx-auto flex h-10 max-w-7xl items-center justify-between px-6 text-[11px] font-medium tracking-[0.1em] text-white/70 uppercase lg:px-8">
-          <span>{contact.address.join(", ")}</span>
+          {/* Στα 768–1024px δεν χωρούν και τα τέσσερα στοιχεία στη λωρίδα. */}
+          <span className="hidden lg:inline">{contact.address.join(", ")}</span>
           <div className="flex items-center gap-8">
             {contact.phones.map((phone) => (
               <a
