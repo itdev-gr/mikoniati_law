@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
-import { contactDetailsPending, firm } from "@/lib/content";
+import type { FirmContact } from "@/lib/cms";
 
 const nav = [
   { href: "/", label: "Αρχική" },
@@ -15,7 +15,7 @@ const nav = [
   { href: "/nea", label: "Νέα" },
 ];
 
-export default function Header() {
+export default function Header({ contact }: { contact: FirmContact }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -69,24 +69,22 @@ export default function Header() {
       {/* Σκούρα λωρίδα στοιχείων επικοινωνίας */}
       <div className="bg-ink hidden md:block">
         <div className="font-display mx-auto flex h-10 max-w-7xl items-center justify-between px-6 text-[11px] font-medium tracking-[0.1em] text-white/70 uppercase lg:px-8">
+          <span>{contact.address.join(", ")}</span>
           <div className="flex items-center gap-8">
-            {!contactDetailsPending && <span>{firm.address.join(", ")}</span>}
-            <span>{firm.hours}</span>
-          </div>
-          <div className="flex items-center gap-8">
-            {!contactDetailsPending && (
+            {contact.phones.map((phone) => (
               <a
-                href={`tel:${firm.phone.replace(/\s/g, "")}`}
+                key={phone}
+                href={`tel:${phone.replace(/\s/g, "")}`}
                 className="hover:text-bronze-light transition-colors"
               >
-                {firm.phone}
+                {phone}
               </a>
-            )}
+            ))}
             <a
-              href={`mailto:${firm.email}`}
+              href={`mailto:${contact.email}`}
               className="hover:text-bronze-light transition-colors"
             >
-              {firm.email}
+              {contact.email}
             </a>
           </div>
         </div>

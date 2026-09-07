@@ -2,6 +2,7 @@ import { backend } from "@/data/backend";
 import { restGet } from "@/lib/backendRest";
 import {
   aboutParagraphs as builtinAbout,
+  firm,
   news as builtinNews,
   opinionsParagraphs as builtinOpinions,
   practiceAreas as builtinAreas,
@@ -21,8 +22,19 @@ import {
 type CmsRecord = { id: string; data: Record<string, unknown> };
 
 const str = (v: unknown): string => (typeof v === "string" ? v : "");
-const num = (v: unknown): number | undefined =>
-  typeof v === "number" ? v : undefined;
+
+/**
+ * Το dashboard αποθηκεύει άλλοτε αριθμό και άλλοτε κείμενο στο ίδιο πεδίο
+ * (π.χ. το `position` της «Ομάδας» είναι "1"/"2"), οπότε δεχόμαστε και τα δύο.
+ */
+const num = (v: unknown): number | undefined => {
+  if (typeof v === "number") return Number.isFinite(v) ? v : undefined;
+  if (typeof v === "string" && v.trim()) {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : undefined;
+  }
+  return undefined;
+};
 
 /**
  * http(s) URLs και τοπικά assets ("/team/…") περνούν ως έχουν· οτιδήποτε άλλο
@@ -61,9 +73,17 @@ async function collectionRecords(slug: string): Promise<CmsRecord[]> {
   );
 }
 
-/** Ταξινόμηση με βάση το πεδίο `position`· εγγραφές χωρίς position πάνε τέλος. */
+/**
+ * Ταξινόμηση με βάση το πεδίο `position`· εγγραφές χωρίς position πάνε τέλος.
+ *
+ * Στο dashboard είναι εύκολο να δοθεί το ίδιο `position` σε δύο εγγραφές. Χωρίς
+ * δεύτερο κριτήριο η σειρά τους κρινόταν από το `created_at` και άλλαζε όποτε ο
+ * πελάτης ξαναποθήκευε μια εγγραφή — γι' αυτό ο τίτλος σπάει την ισοπαλία.
+ */
 const byPosition = (a: CmsRecord, b: CmsRecord) =>
-  (num(a.data.position) ?? 9999) - (num(b.data.position) ?? 9999);
+  (num(a.data.position) ?? 9999) - (num(b.data.position) ?? 9999) ||
+  str(a.data.title).localeCompare(str(b.data.title), "el") ||
+  str(a.data.name).localeCompare(str(b.data.name), "el");
 
 /* ── Δημοσιεύσεις ──────────────────────────────────────────────────────── */
 
@@ -237,6 +257,32 @@ export async function fetchSiteCopy(): Promise<SiteCopy> {
     console.error("Site copy fetch failed — using built-in text", err);
   }
   return (slot, fallback) => map.get(slot) || fallback;
+}
+
+/* ── Στοιχεία επικοινωνίας ─────────────────────────────────────────────── */
+
+export type FirmContact = {
+  address: string[];
+  phones: string[];
+  email: string;
+};
+
+/**
+ * Τα στοιχεία επικοινωνίας ζουν στα slots `contact_address`, `contact_phone`
+ * και `contact_email` του `site_content`, ώστε το γραφείο να τα αλλάζει μόνο
+ * του. Το `contact_phone` κρατά ένα τηλέφωνο ανά γραμμή. Fallback το `firm`.
+ */
+export async function fetchFirmContact(): Promise<FirmContact> {
+  const copy = await fetchSiteCopy();
+  const fromLines = (slot: string, fallback: string[]): string[] => {
+    const value = lines(copy(slot, ""));
+    return value.length ? value : fallback;
+  };
+  return {
+    address: fromLines("contact_address", firm.address),
+    phones: fromLines("contact_phone", firm.phones),
+    email: copy("contact_email", firm.email),
+  };
 }
 
 /** Οι παράγραφοι μιας σελίδας από διαδοχικά slots (`about_body_1`, `_2`, …). */

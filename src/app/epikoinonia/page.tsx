@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
-import { contactDetailsPending, firm } from "@/lib/content";
-import { fetchPracticeAreas } from "@/lib/cms";
+import { fetchFirmContact, fetchPracticeAreas } from "@/lib/cms";
 
 export const metadata: Metadata = {
   title: "Επικοινωνία",
@@ -12,14 +11,16 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const areas = await fetchPracticeAreas();
+  const [areas, contact] = await Promise.all([
+    fetchPracticeAreas(),
+    fetchFirmContact(),
+  ]);
 
-  const details = [
-    !contactDetailsPending && { label: "Διεύθυνση", lines: firm.address },
-    !contactDetailsPending && { label: "Τηλέφωνο", lines: [firm.phone] },
-    { label: "Email", lines: [firm.email] },
-    { label: "Ώρες λειτουργίας", lines: [firm.hours] },
-  ].filter(Boolean) as { label: string; lines: string[] }[];
+  const details: { label: string; lines: string[] }[] = [
+    { label: "Διεύθυνση", lines: contact.address },
+    { label: "Τηλέφωνο", lines: contact.phones },
+    { label: "Email", lines: [contact.email] },
+  ];
 
   return (
     <>

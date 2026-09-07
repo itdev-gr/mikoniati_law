@@ -11,25 +11,29 @@ export default function SectionHeading({
   tone = "light",
 }: {
   eyebrow: string;
-  title: string;
+  /** Χωρίς τίτλο, το eyebrow αναλαμβάνει τον ρόλο της επικεφαλίδας. */
+  title?: string;
   lead?: string;
   align?: "left" | "center";
   tone?: "light" | "dark";
 }) {
   const dark = tone === "dark";
   const centered = align === "center";
+  const Eyebrow = title ? "p" : "h2";
   return (
     <div className={centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      <p className="font-display text-bronze text-[13px] font-bold tracking-[0.2em] uppercase">
+      <Eyebrow className="font-display text-bronze text-[13px] font-bold tracking-[0.2em] uppercase">
         {eyebrow}
-      </p>
-      <h2
-        className={`mt-3 text-3xl leading-[1.15] font-bold tracking-tight sm:text-4xl ${
-          dark ? "text-white" : "text-ink"
-        }`}
-      >
-        {title}
-      </h2>
+      </Eyebrow>
+      {title && (
+        <h2
+          className={`mt-3 text-3xl leading-[1.15] font-bold tracking-tight sm:text-4xl ${
+            dark ? "text-white" : "text-ink"
+          }`}
+        >
+          {title}
+        </h2>
+      )}
       <div
         className={`bg-bronze mt-5 h-1 w-14 ${centered ? "mx-auto" : ""}`}
         aria-hidden

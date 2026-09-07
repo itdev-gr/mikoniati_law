@@ -3,6 +3,7 @@ import { Inter, Roboto_Condensed } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { firm } from "@/lib/content";
+import { fetchFirmContact, fetchPracticeAreas, fetchTeam } from "@/lib/cms";
 import "./globals.css";
 
 // Και οι δύο γραμματοσειρές φορτώνονται με το ελληνικό subset. Προσοχή σε
@@ -41,11 +42,18 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Το Header είναι client component και δεν μπορεί να διαβάσει μόνο του το CMS.
+  const [contact, areas, team] = await Promise.all([
+    fetchFirmContact(),
+    fetchPracticeAreas(),
+    fetchTeam(),
+  ]);
+
   return (
     <html lang="el">
       <body
@@ -57,9 +65,9 @@ export default function RootLayout({
         >
           Μετάβαση στο περιεχόμενο
         </a>
-        <Header />
+        <Header contact={contact} />
         <main id="main">{children}</main>
-        <Footer />
+        <Footer contact={contact} areas={areas} team={team} />
       </body>
     </html>
   );

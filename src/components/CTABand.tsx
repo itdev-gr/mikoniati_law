@@ -1,14 +1,16 @@
 import Link from "next/link";
 import Reveal from "./Reveal";
-import { contactDetailsPending, firm } from "@/lib/content";
+import { fetchFirmContact } from "@/lib/cms";
 
-export default function CTABand({
+export default async function CTABand({
   title = "Συζητήστε την υπόθεσή σας μαζί μας",
   lead = "Επικοινωνήστε με το Γραφείο για μια πρώτη αξιολόγηση της υπόθεσής σας, με πλήρη εχεμύθεια.",
 }: {
   title?: string;
   lead?: string;
 }) {
+  const { phones } = await fetchFirmContact();
+
   return (
     <section className="bg-ink relative overflow-hidden">
       <div
@@ -35,14 +37,10 @@ export default function CTABand({
                 Φόρμα επικοινωνίας
               </Link>
               <a
-                href={
-                  contactDetailsPending
-                    ? `mailto:${firm.email}`
-                    : `tel:${firm.phone.replace(/\s/g, "")}`
-                }
+                href={`tel:${phones[0].replace(/\s/g, "")}`}
                 className="font-display inline-flex h-12 items-center justify-center border border-white/25 px-8 text-[12px] font-semibold tracking-[0.16em] text-white uppercase transition-colors hover:border-white hover:bg-white/5"
               >
-                {contactDetailsPending ? firm.email : firm.phone}
+                {phones[0]}
               </a>
             </div>
           </div>

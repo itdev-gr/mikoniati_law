@@ -5,26 +5,21 @@ import SectionHeading from "@/components/SectionHeading";
 import PracticeAreaCard from "@/components/PracticeAreaCard";
 import TeamCard from "@/components/TeamCard";
 import ContactForm from "@/components/ContactForm";
-import { aboutParagraphs, firm, stats } from "@/lib/content";
+import { aboutParagraphs, firm } from "@/lib/content";
 import {
+  fetchFirmContact,
   fetchPracticeAreas,
   fetchSiteCopy,
   fetchTeam,
   copyParagraphs,
 } from "@/lib/cms";
 
-const reasons = [
-  "Επιστημονικά τεκμηριωμένη νομική ανάλυση σε κάθε υπόθεση",
-  "Προσωπική ενασχόληση των εταίρων με τον χειρισμό και την εποπτεία",
-  "Έγκαιρη αξιολόγηση των νομικών κινδύνων και σαφής στρατηγική",
-  "Δικαστική εκπροσώπηση και εξωδικαστική επίλυση διαφορών",
-];
-
 export default async function Home() {
-  const [areas, team, copy] = await Promise.all([
+  const [areas, team, copy, contact] = await Promise.all([
     fetchPracticeAreas(),
     fetchTeam(),
     fetchSiteCopy(),
+    fetchFirmContact(),
   ]);
   const about = copyParagraphs(copy, "about_body", aboutParagraphs);
 
@@ -40,20 +35,14 @@ export default async function Home() {
               </p>
             </Reveal>
             <Reveal delay={100}>
-              <h1 className="text-ink mt-4 text-4xl leading-[1.12] font-bold tracking-tight sm:text-5xl xl:text-[3.4rem]">
+              {/* Πρόταση, όχι σύνθημα: μικρότερη κλίμακα από τους τίτλους των
+                  εσωτερικών σελίδων, ώστε να διαβάζεται σαν κείμενο. */}
+              <h1 className="text-ink mt-4 max-w-xl text-2xl leading-snug font-bold tracking-tight sm:text-3xl xl:text-[2.1rem]">
                 {copy(
                   "home_hero_title",
-                  "Νομική υποστήριξη με επιστημονική τεκμηρίωση",
-                )}
-              </h1>
-            </Reveal>
-            <Reveal delay={200}>
-              <p className="mt-6 max-w-xl text-base leading-relaxed sm:text-lg">
-                {copy(
-                  "home_hero_lead",
                   "Δικηγορικό γραφείο στο κέντρο της Αθήνας, με έμφαση στο Αστικό και Εμπορικό Δίκαιο, τις σύνθετες δικαστικές διαφορές και τη στρατηγική νομική συμβουλευτική.",
                 )}
-              </p>
+              </h1>
             </Reveal>
             <Reveal delay={300}>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
@@ -101,8 +90,7 @@ export default async function Home() {
             <div className="flex flex-wrap items-end justify-between gap-6">
               <SectionHeading
                 eyebrow="Τομείς δραστηριότητας"
-                title="Πού μπορούμε να σας υποστηρίξουμε"
-                lead="Καλύπτουμε το Αστικό και το Εμπορικό Δίκαιο σε όλο τους το εύρος, από τη συμβουλευτική υποστήριξη μέχρι τη δικαστηριακή εκπροσώπηση."
+                lead="Το Γραφείο μας παρέχει εξειδικευμένες και υψηλής ποιότητας νομικές υπηρεσίες στο πεδίο του Ιδιωτικού Δικαίου."
               />
               <Link
                 href="/tomeis"
@@ -156,31 +144,18 @@ export default async function Home() {
             <Reveal delay={150}>
               <SectionHeading
                 eyebrow="Το Γραφείο"
-                title="Μια συνεργασία με συμπληρωματικές διαδρομές"
+                title="Μία συνεργασία με συμπληρωματικές διαδρομές"
                 tone="dark"
                 lead={about[0]}
               />
-              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-white/55">
-                {about[1]}
-              </p>
-              <div className="mt-10 grid grid-cols-2 gap-x-8 gap-y-8">
-                {stats.map((stat) => (
-                  <div key={stat.label} className="border-bronze/60 border-l pl-5">
-                    <p className="font-display text-4xl font-bold text-white">
-                      {stat.value}
-                    </p>
-                    <p className="font-display mt-1 text-[11px] font-semibold tracking-[0.14em] text-white/50 uppercase">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <Link
-                href="/grafeio"
-                className="font-display bg-bronze hover:bg-bronze-light mt-10 inline-flex h-12 items-center px-8 text-[13px] font-bold tracking-[0.14em] text-white uppercase transition-colors"
-              >
-                Περισσότερα για το Γραφείο
-              </Link>
+              {about.slice(1, 3).map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="mt-5 max-w-2xl text-sm leading-relaxed text-white/55"
+                >
+                  {paragraph}
+                </p>
+              ))}
             </Reveal>
           </div>
         </div>
@@ -190,12 +165,7 @@ export default async function Home() {
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal>
-            <SectionHeading
-              eyebrow="Η Ομάδα"
-              title="Οι εταίροι του Γραφείου"
-              align="center"
-              lead="Οι εταίροι συμμετέχουν προσωπικά στον χειρισμό και την εποπτεία κάθε υπόθεσης."
-            />
+            <SectionHeading eyebrow="Η Ομάδα" title="Εταίροι" align="center" />
           </Reveal>
           <div className="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2">
             {team.map((member, i) => (
@@ -230,28 +200,21 @@ export default async function Home() {
               </Link>
             </Reveal>
             <Reveal delay={150}>
-              <ul className="space-y-4">
-                {reasons.map((reason) => (
-                  <li
-                    key={reason}
-                    className="border-hairline flex items-start gap-3 border bg-white p-5 text-sm leading-relaxed"
-                  >
-                    <span className="bg-bronze/15 mt-[1px] flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                      <svg
-                        aria-hidden
-                        viewBox="0 0 16 16"
-                        className="text-bronze h-3.5 w-3.5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path d="M2 8.5 6 12l8-8" />
-                      </svg>
-                    </span>
-                    {reason}
-                  </li>
-                ))}
-              </ul>
+              <div className="relative">
+                <div
+                  aria-hidden
+                  className="bg-bronze/30 absolute -top-4 -right-4 h-full w-full"
+                />
+                <div className="relative aspect-4/3">
+                  <Image
+                    src="/images/hero-justice.jpg"
+                    alt="Άγαλμα της Θέμιδος"
+                    fill
+                    sizes="(min-width: 1024px) 44vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -270,20 +233,34 @@ export default async function Home() {
               <div className="mt-8 space-y-6 text-sm">
                 <div>
                   <p className="font-display text-ink text-[11px] font-bold tracking-[0.16em] uppercase">
-                    Email
+                    Διεύθυνση
                   </p>
-                  <a
-                    href={`mailto:${firm.email}`}
-                    className="text-bronze hover:text-bronze-light mt-1 inline-block transition-colors"
-                  >
-                    {firm.email}
-                  </a>
+                  <p className="mt-1">{contact.address.join(", ")}</p>
                 </div>
                 <div>
                   <p className="font-display text-ink text-[11px] font-bold tracking-[0.16em] uppercase">
-                    Ώρες λειτουργίας
+                    Τηλέφωνο
                   </p>
-                  <p className="mt-1">{firm.hours}</p>
+                  {contact.phones.map((phone) => (
+                    <a
+                      key={phone}
+                      href={`tel:${phone.replace(/\s/g, "")}`}
+                      className="text-bronze hover:text-bronze-light mt-1 block transition-colors"
+                    >
+                      {phone}
+                    </a>
+                  ))}
+                </div>
+                <div>
+                  <p className="font-display text-ink text-[11px] font-bold tracking-[0.16em] uppercase">
+                    Email
+                  </p>
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="text-bronze hover:text-bronze-light mt-1 inline-block transition-colors"
+                  >
+                    {contact.email}
+                  </a>
                 </div>
               </div>
             </Reveal>

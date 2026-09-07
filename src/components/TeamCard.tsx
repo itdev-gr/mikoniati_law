@@ -12,7 +12,8 @@ function LinkedInIcon({ className = "h-4 w-4" }: { className?: string }) {
 
 /**
  * Κάρτα μέλους της ομάδας, στο πρότυπο που ζήτησε ο πελάτης: φωτογραφία,
- * όνομα, ιδιότητα, email και LinkedIn, με μπάρα ενεργειών στο κάτω μέρος.
+ * όνομα, ιδιότητα και LinkedIn, με μπάρα ενεργειών στο κάτω μέρος. Προσωπικά
+ * email δεν δημοσιεύονται — μόνο το κεντρικό info@ του Γραφείου.
  *
  * Τα μέλη με κατάλογο δημοσιεύσεων (`hasPublications`) παίρνουν δεύτερο κουμπί
  * «Δημοσιεύσεις» δίπλα στο «Βιογραφικό»· τα υπόλοιπα παίρνουν ένα κουμπί σε
@@ -42,12 +43,6 @@ export default function TeamCard({ member }: { member: TeamMember }) {
         <p className="text-charcoal mt-4 text-sm leading-relaxed">
           {member.credentials}
         </p>
-        <a
-          href={`mailto:${member.email}`}
-          className="text-bronze hover:text-bronze-light mt-4 text-sm break-all transition-colors"
-        >
-          {member.email}
-        </a>
         {member.linkedin && (
           <a
             href={member.linkedin}

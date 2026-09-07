@@ -14,18 +14,15 @@ export const firm = {
   nameLatin: "Saitakis Mykoniati & Partners",
   tagline: "Δικηγορικό Γραφείο",
   founded: 2017,
-  // PENDING: πραγματική διεύθυνση γραφείου
-  address: ["Οδός & αριθμός", "Κέντρο Αθήνας"],
-  // PENDING: πραγματικό τηλέφωνο
-  phone: "+30 210 000 0000",
-  // PENDING: πραγματικό email
+  address: ["Γεωργίου Γενναδίου 6", "106 78 Αθήνα"],
+  /** Σταθερό πρώτο, κινητό δεύτερο· η σειρά είναι και η σειρά εμφάνισης. */
+  phones: ["+30 211 216 6877", "+30 695 529 2289"],
   email: "info@sm-legal.gr",
-  hours: "Δευτέρα – Παρασκευή, 9:00 – 18:00",
+  // PENDING: ΑΦΜ και ΔΟΥ για το υποσέλιδο· όσο είναι κενά, η γραμμή δεν μπαίνει.
+  vat: "",
+  taxOffice: "",
   nbDaily: "https://daily.nb.org/author/kimon-saitakis/",
 };
-
-/** True αν κάποιο στοιχείο επικοινωνίας δεν έχει δοθεί ακόμη από τον πελάτη. */
-export const contactDetailsPending = firm.phone.includes("000 0000");
 
 export type AreaIconName =
   | "inheritance"
@@ -264,8 +261,8 @@ export const team: TeamMember[] = [
     credentials:
       "Επίκουρος Καθηγητής Αστικού Δικαίου Νομικής Σχολής ΕΚΠΑ · Δικηγόρος παρ’ Αρείω Πάγω",
     photo: "/team/kimon-saitakis.jpg",
-    // PENDING: προσωπικό email
-    email: "k.saitakis@sm-legal.gr",
+    // Ο πελάτης ζήτησε να μη δημοσιεύονται προσωπικά email — μόνο το info@.
+    email: "",
     linkedin: "https://www.linkedin.com/in/kimon-saitakis-86618470/",
     short:
       "Επίκουρος Καθηγητής Αστικού Δικαίου στη Νομική Σχολή Αθηνών και δικηγόρος παρ’ Αρείω Πάγω, με εξειδίκευση στο Αστικό και Εμπορικό Δίκαιο.",
@@ -287,8 +284,8 @@ export const team: TeamMember[] = [
     credentials:
       "Δικηγόρος παρ’ Αρείω Πάγω, LL.M. · Διαπιστευμένη Διαμεσολαβήτρια",
     photo: "/team/angeliki-mykoniati.jpg",
-    // PENDING: προσωπικό email
-    email: "a.mykoniati@sm-legal.gr",
+    // Ο πελάτης ζήτησε να μη δημοσιεύονται προσωπικά email — μόνο το info@.
+    email: "",
     linkedin: "https://www.linkedin.com/in/angeliki-mykoniati-4959409a/",
     short:
       "Δικηγόρος παρ’ Αρείω Πάγω με μεταπτυχιακή ειδίκευση στην Πολιτική Δικονομία, πρώην δικαστική λειτουργός και Διαπιστευμένη Διαμεσολαβήτρια.",

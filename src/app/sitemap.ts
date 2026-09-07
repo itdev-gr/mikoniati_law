@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/omada",
     "/nea",
     "/epikoinonia",
+    "/politiki-aporritou",
   ];
 
   return [

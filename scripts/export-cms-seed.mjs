@@ -70,17 +70,15 @@ const seed = {
   })),
 
   site_content: [
-    ["home_hero_title", "Νομική υποστήριξη με επιστημονική τεκμηρίωση"],
     [
-      "home_hero_lead",
+      "home_hero_title",
       "Δικηγορικό γραφείο στο κέντρο της Αθήνας, με έμφαση στο Αστικό και Εμπορικό Δίκαιο, τις σύνθετες δικαστικές διαφορές και τη στρατηγική νομική συμβουλευτική.",
     ],
     ...aboutParagraphs.map((p, i) => [`about_body_${i + 1}`, p]),
     ...opinionsParagraphs.map((p, i) => [`opinions_body_${i + 1}`, p]),
     ["contact_address", firm.address.join(", ")],
-    ["contact_phone", firm.phone],
+    ["contact_phone", firm.phones.join("\n")],
     ["contact_email", firm.email],
-    ["contact_hours", firm.hours],
     ["cta_title", "Συζητήστε την υπόθεσή σας μαζί μας"],
     [
       "cta_lead",

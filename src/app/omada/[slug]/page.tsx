@@ -104,12 +104,6 @@ export default async function TeamMemberPage({
                     )}
                   </Link>
                 )}
-                <a
-                  href={`mailto:${member.email}`}
-                  className="font-display inline-flex h-12 items-center border border-white/25 px-7 text-[12px] font-semibold tracking-[0.16em] text-white uppercase transition-colors hover:border-white hover:bg-white/5"
-                >
-                  Email
-                </a>
                 {member.linkedin && (
                   <a
                     href={member.linkedin}
