@@ -39,7 +39,7 @@ export default async function PracticeAreaPage({
 
   return (
     <>
-      <PageHero eyebrow="Τομέας δραστηριότητας" title={area.name} lead={area.intro} />
+      <PageHero eyebrow="Τομέας δραστηριότητας" title={area.name} />
 
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

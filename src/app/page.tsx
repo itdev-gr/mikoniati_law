@@ -33,19 +33,19 @@ export default async function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 sm:py-20 lg:grid-cols-2 lg:px-8">
           <div>
             <Reveal>
-              <p className="font-display text-bronze text-[13px] font-bold tracking-[0.2em] uppercase">
+              <h1 className="text-ink max-w-xl text-4xl leading-[1.08] font-bold tracking-tight sm:text-5xl xl:text-[3.4rem]">
                 {firm.name}
-              </p>
+              </h1>
             </Reveal>
             <Reveal delay={100}>
-              {/* Πρόταση, όχι σύνθημα: μικρότερη κλίμακα από τους τίτλους των
-                  εσωτερικών σελίδων, ώστε να διαβάζεται σαν κείμενο. */}
-              <h1 className="text-ink mt-4 max-w-xl text-2xl leading-snug font-bold tracking-tight sm:text-3xl xl:text-[2.1rem]">
+              {/* Το slot «hero title» του dashboard αποδίδεται πλέον ως η
+                  συνοδευτική πρόταση κάτω από την επωνυμία. */}
+              <p className="mt-6 max-w-xl text-base leading-relaxed sm:text-lg">
                 {copy(
                   "home_hero_title",
                   "Δικηγορικό γραφείο στο κέντρο της Αθήνας, με έμφαση στο Αστικό και Εμπορικό Δίκαιο, τις σύνθετες δικαστικές διαφορές και τη στρατηγική νομική συμβουλευτική.",
                 )}
-              </h1>
+              </p>
             </Reveal>
             {heroLead && (
               <Reveal delay={200}>
