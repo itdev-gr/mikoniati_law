@@ -188,7 +188,9 @@ export async function fetchPracticeAreas(): Promise<PracticeArea[]> {
           shortName: str(r.data.short_name).trim() || base?.shortName || str(r.data.name).trim(),
           icon: isIcon(icon) ? icon : (base?.icon ?? "scales"),
           short: str(r.data.short).trim() || base?.short || "",
-          intro: str(r.data.intro).trim() || base?.intro || "",
+          // Σκόπιμα χωρίς fallback: ο πελάτης ελέγχει το intro αποκλειστικά
+          // από το dashboard — άδειο πεδίο σημαίνει «να μην εμφανίζεται».
+          intro: str(r.data.intro).trim(),
           body: body.length ? body : (base?.body ?? []),
           services: services.length ? services : (base?.services ?? []),
         };

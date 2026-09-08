@@ -34,7 +34,7 @@ export default async function Home() {
           <div>
             <Reveal>
               <h1 className="text-ink max-w-xl text-4xl leading-[1.08] font-bold tracking-tight sm:text-5xl xl:text-[3.4rem]">
-                {firm.name}
+                {copy("home_hero_heading", firm.name)}
               </h1>
             </Reveal>
             <Reveal delay={100}>
